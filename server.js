@@ -18,12 +18,15 @@ app.use(function(req, res, next){
 
 /*** All routes ***/
 
-// Get All Patients
-app.get('/getAllPatients', db.getAllPatients);
-
-
-// Save Form
+// Client Routes //
 app.post('/saveForm', db.saveForm);
+
+
+// Admin Routes //
+app.post('/serverCheck', db.serverCheck);
+app.post('/adminLogin', db.adminLogin);
+app.post('/getAllPatients', db.getAllPatients);
+
 
 
 app.listen(port);

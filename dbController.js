@@ -4,21 +4,33 @@ var dateFormat = require('dateformat');
 
 // Schemes
 var Patient = require('./defineSchema/Patient');
+var Admin = require('./defineSchema/Admin');
 
 // Get All Patients - Just for admin
 exports.getAllPatients = function(req, res){
-	console.log("Start Get All Patients Data...");
-	Patient.find().where('_id').exec (function(err, data){
-		if(err) {
-			console.log(err);
-			return res.status(500).send();
-		}
-		console.log(JSON.stringify(data, null, 2));
-		console.log("Get Patients Successfully Done !");
-		return res.status(200).send(data);
-	})
+	if((req.body.user.email)&&(req.body.user.token)){
+		Admin.findOne({}).where('email').equals(req.body.user.email). 
+		where('_id').equals(req.body.user.token).
+		exec (function(err, admin){
+			if(err){
+		        console.log(err);
+				return res.status(500).send();
+			}
+			if(admin){
+				console.log("Start Get All Patients Data...");
+				Patient.find().where('_id').exec (function(err, data){
+					if(err) {
+						console.log(err);
+						return res.status(500).send();
+					}
+					// console.log(JSON.stringify(data, null, 2));
+					console.log("Get Patients Successfully Done !");
+					return res.status(200).send(data);
+				})
+			}
+		})
+	}
 };
-
 
 // Save Form
 exports.saveForm = function(req, res){
@@ -88,8 +100,81 @@ exports.saveForm = function(req, res){
 				return res.status(406).send(err);
 			}
 			console.log("Patent Saved Successfully");
+
+			const nodemailer = require('nodemailer');
+			// create reusable transporter object using the default SMTP transport
+			let transporter = nodemailer.createTransport({
+			    service: 'gmail',
+			    auth: {
+			        user: 'cricketownIL@gmail.com',
+			        pass: 'cricketownil123'
+			    }
+			});
+	    	// setup email data with unicode symbols
+			let mailOptions = {
+			    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
+			    to: "karnishrem@gmail.com", // list of receivers
+			    subject: "התקבל טופס הרשמה חדש", // Subject line
+			    text: "התקבל טופס הרשמה חדש", // plain text body
+			};
+
+			// send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+			    if (error) {
+			        return console.log(error);
+			    }
+			    console.log('Message %s sent: %s', info.messageId, info.response);
+			});
+
 			return res.status(200).send(savedPatient);
 		})
 	}
 	else console.log("Error Save New Patient - Some details is missing");
+};
+
+// Auto Server Check (Admin Mode)
+exports.serverCheck = function(req, res){
+	console.log("Server Checked..");
+	return res.status(200).send();
+};
+
+// Check Admin Login
+exports.adminLogin = function(req, res){
+	if((req.body.user.email)&&(req.body.user.password)){
+		Admin.findOne({}).where('email').equals(req.body.user.email). 
+		where('password').equals(req.body.user.password).
+		exec (function(err, admin){
+			if(err){
+		        console.log(err);
+				return res.status(500).send();
+			}
+			if(!admin){
+		        console.log("Email / Password Incorrect");
+				return res.status(404).send("Error");
+			}
+			if(admin){
+				console.log("Admin Login => Email: "+req.body.user.email+" / Password: "+req.body.user.password);
+				var admin = {
+					email: admin.email,
+					token: admin._id,
+					patients: Array
+				}
+				console.log("Start Get All Patients Data...");
+				Patient.find().where('_id').exec (function(err, data){
+					if(err) {
+						console.log(err);
+						return res.status(500).send();
+					}
+					// console.log(JSON.stringify(data, null, 2));
+					admin.patients = data;
+					console.log("Get Patients Successfully Done !");
+					return res.status(200).send(admin);
+				})	
+			}
+		})
+	}
+	else {
+		console.log("email / password is missing");
+		return res.status(500).send();
+	}
 };
