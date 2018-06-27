@@ -22,7 +22,7 @@
     "express": "^4.16.3",
     "mongoose": "^5.1.4",
     "jszip": "^3.1.5",
-    "docxtemplater": "^3.6.6",
+    "docxtemplater": "^3.6.6"
   },
   "devDependencies": {},
   "description": ""
