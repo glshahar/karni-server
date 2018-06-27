@@ -16,10 +16,24 @@ app.use(function(req, res, next){
 });
 
 
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
+
+app.use(bodyParser.urlencoded({
+    extended: false,
+    limit: '5mb'
+}));
+
+
+
+
 /*** All routes ***/
 
 // Client Routes //
 app.post('/saveForm', db.saveForm);
+app.post('/saveSecrecy', db.saveSecrecy);
+app.post('/saveAgreement', db.saveAgreement);
 
 
 // Admin Routes //
