@@ -283,7 +283,7 @@ exports.saveForm = function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "karnishrem@gmail.com", // list of receivers
-		    to: "karnishrem@gmail.com", // list of receivers
+		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל טופס שאלון חדש", // Subject line
 		    text: "התקבל טופס שאלון חדש", // plain text body
 		    attachments: [{   
@@ -440,7 +440,7 @@ exports.saveSecrecy = function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "karnishrem@gmail.com", // list of receivers
-		    to: "karnishrem@gmail.com", // list of receivers
+		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל טופס ויתור סודיות חדש", // Subject line
 		    text: "התקבל טופס ויתור סודיות חדש", // plain text body
 		    attachments: [{   
@@ -527,7 +527,7 @@ exports.saveAgreement = function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "karnishrem@gmail.com", // list of receivers
-		    to: "karnishrem@gmail.com", // list of receivers
+		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל חוזה טיפולי חדש", // Subject line
 		    text: "התקבל חוזה טיפולי חדש", // plain text body
 		    attachments: [{   
