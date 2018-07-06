@@ -21,8 +21,8 @@
     "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "mongoose": "^5.1.4",
-    "jszip": "^2.0.0",
-    "docxtemplater": "^3.0.1",
+    "jszip": "^2.6.0",
+    "docxtemplater": "^3.6.6",
     "docxtemplater-image-module": "^3.1.0"
   },
   "devDependencies": {},
