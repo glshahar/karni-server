@@ -264,7 +264,7 @@ exports.saveForm = function(req, res){
 		    throw error;
 		}
 
-		var buf = doc.getZip().generate();
+		var buf = doc.getZip().generate({type: 'nodebuffer'});
 
 		// buf is a nodejs buffer, you can either write it to a file or do anything else with it.
 		fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
@@ -421,7 +421,7 @@ exports.saveSecrecy = function(req, res){
 		    // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
 		    throw error;
 		}
-		var buf = doc.getZip().generate();
+		var buf = doc.getZip().generate({type:"nodebuffer"});
 		// buf is a nodejs buffer, you can either write it to a file
 		// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
 
@@ -509,7 +509,7 @@ exports.saveAgreement = function(req, res){
 		    throw error;
 		}
 
-		var buf = doc.getZip().generate();
+		var buf = doc.getZip().generate({type: 'nodebuffer'});
 
 		// buf is a nodejs buffer, you can either write it to a file or do anything else with it.
 		// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
