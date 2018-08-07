@@ -41,6 +41,8 @@ app.post('/serverCheck', db.serverCheck);
 app.post('/adminLogin', db.adminLogin);
 app.post('/getAllPatients', db.getAllPatients);
 
+// Shadow Yoga Routes //
+app.post('/sendContactForm', db.sendContactForm);
 
 
 app.listen(port);
