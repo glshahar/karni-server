@@ -44,6 +44,8 @@ app.post('/getAllPatients', db.getAllPatients);
 // Shadow Yoga Routes //
 app.post('/sendContactForm', db.sendContactForm);
 
+// Portfolio //
+app.post('/sendContactGal', db.sendContactGal);
 
 app.listen(port);
 console.log("karni server app listening on port " + port);
