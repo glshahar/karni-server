@@ -694,7 +694,8 @@ exports.sendAnalytics = function(req, res){
 	if(req.body.analytics){
 		console.log("REQ JSON: "+JSON.stringify(req.body.analytics, null, 4));
 		res.status(200).send();
-
+		
+		var newLog = new Log();
 	    var id = mongoose.Types.ObjectId();
 	    newLog._id = id;
 	    newLog.logUserId = req.body.analytics.userId;
