@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
 var logSchema = new schema({
-	_id: String,,
+	_id: String,
 	logUserId: String,
 	logDate: String,
 	logAction: String,
