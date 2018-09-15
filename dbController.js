@@ -644,7 +644,7 @@ exports.sendContactForm = function(req, res){
 	else return res.status(500).send();
 };
 
-// send Contact Form - Shadow Yoga Shala
+// send Contact Form - Portfolio
 exports.sendContactGal = function(req, res){
 	console.log("Start Save Contact Form...");
 	if(req.body.contactForm){
@@ -683,4 +683,34 @@ exports.sendContactGal = function(req, res){
 
 	}
 	else return res.status(500).send();
+};
+
+
+var Log = require('./defineSchema/Log');
+var Logs = require('./defineSchema/Logs');
+
+// Send Analytics
+exports.sendAnalytics = function(req, res){
+	if(req.body.analytics){
+		console.log("REQ JSON: "+JSON.stringify(req.body.analytics, null, 4));
+		res.status(200).send();
+
+	    var id = mongoose.Types.ObjectId();
+	    newLog._id = id;
+	    newLog.logUserId = req.body.analytics.userId;
+	    newLog.logDate = req.body.analytics.date;
+	    newLog.logAction = req.body.analytics.action;
+	    newLog.logResolution = req.body.analytics.resolution;
+	    console.log("NEW LOG: "+JSON.stringify(newLog, null, 2));
+	    
+	    // Updade Logs Collection
+	    Logs.update(
+	    { logType: "analytics" },
+	    { $push: { logsArr : newLog } } ).
+	    exec (function(err, newLog){
+	        if(err) console.log(err);
+	        if(!newLog) console.log("Error Log");
+	        if(newLog) console.log("Log Saved Successfully");
+	    })
+	}
 };
