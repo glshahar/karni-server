@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
 var logsSchema = new schema({
-	_id: {type: String, index:1, required:true, unique:true},
+	_id: String,
 	logType: String,
 	logsArr: []
 }, {collection: 'analytics'});
