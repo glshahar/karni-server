@@ -6,7 +6,7 @@ var logSchema = new schema({
 	logUserId: String,
 	logDate: String,
 	logAction: String,
-	logResolution: Strings
+	logResolution: String,
 }, {collection: 'analytics'});
 
 var Log = mongoose.model('Log', logSchema);
