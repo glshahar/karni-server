@@ -49,6 +49,7 @@ app.post('/sendContactGal', db.sendContactGal);
 
 // Portfolio //
 app.post('/sendAnalytics', db.sendAnalytics);
+app.post('/getLogs', db.getLogs);
 
 app.listen(port);
 console.log("karni server app listening on port " + port);
