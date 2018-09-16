@@ -725,7 +725,7 @@ exports.getLogs = function(req, res){
 				console.log(err);
 				return res.status(500).send();
 			}
-			console.log(JSON.stringify(data.logsArr, null, 2));
+			// console.log(JSON.stringify(data.logsArr, null, 2));
 			console.log("Get Logs Successfully");
 			return res.status(200).send(data.logsArr);
 		})
