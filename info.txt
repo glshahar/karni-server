@@ -1,0 +1,4 @@
+cd /C/xampp/htdocs/karni_project/karni_server/
+
+heroku login
+galsh300@gmail.com

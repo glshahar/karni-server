@@ -65,6 +65,7 @@ exports.saveForm = function(req, res){
 		newPatient.fatherName = req.body.userDetails.fatherName;
 		newPatient.fJob = req.body.userDetails.fJob;
 		newPatient.fTel = req.body.userDetails.fTel;
+		newPatient.married = req.body.userDetails.married;
 
 		newPatient.siblings = req.body.userDetails.siblings;
 
@@ -165,7 +166,8 @@ exports.saveForm = function(req, res){
             'mTel': req.body.userDetails.mTel,
             'fatherName': req.body.userDetails.fatherName,
             'fJob': req.body.userDetails.fJob,
-            'fTel': req.body.userDetails.fTel,
+			'fTel': req.body.userDetails.fTel,
+			'married': req.body.userDetails.married,
 
             'sib1name': siblings[0].name,
             'sib1age': siblings[0].age,
@@ -703,6 +705,20 @@ exports.sendAnalytics = function(req, res){
 	    newLog.logAction = req.body.analytics.action;
 	    newLog.logResolution = req.body.analytics.resolution;
 	    console.log("NEW LOG: "+JSON.stringify(newLog, null, 2));
+
+
+
+	    // Updade Logs Collection
+	    // Logs.update(
+	    // { logsType: "analytics" },
+	    // { $push: { logsArr : newLog } } ).
+	    // where('logUserId').equals(req.body.analytics.userId).
+	    // exec (function(err, newLog){
+	    //     if(err) console.log(err);
+	    //     if(!newLog) console.log("Error Log");
+	    //     if(newLog) console.log("Log Saved Successfully");
+	    // })
+
 	    
 	    // Updade Logs Collection
 	    Logs.update(

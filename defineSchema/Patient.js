@@ -21,6 +21,7 @@ var patientSchema = new schema({
 	fatherName: String,
 	fJob: String,
 	fTel: String,
+	married: String,
 
 	siblings: Array,
 
