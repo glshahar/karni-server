@@ -269,7 +269,7 @@ exports.saveForm = async function(req, res){
 		var buf = doc.getZip().generate({type: 'nodebuffer'});
 
 		// buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-		// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
+		fs.writeFileSync(path.resolve(__dirname, req.body.userDetails.fName+'.docx'), buf);
 
 
 		const nodemailer = require('nodemailer');
@@ -314,7 +314,7 @@ exports.saveForm = async function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "galsh20@gmail.com", // list of receivers
-		    to: ["galsh20@gmail.com"], // list of receivers
+		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל טופס שאלון חדש", // Subject line
 		    text: "התקבל טופס שאלון חדש", // plain text body
 		    attachments: [{   
