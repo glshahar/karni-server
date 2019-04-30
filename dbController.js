@@ -38,7 +38,7 @@ exports.getAllPatients = function(req, res){
 };
 
 // Save Questionnaire Form
-exports.saveForm = function(req, res){
+exports.saveForm = async function(req, res){
 	console.log("Start Save New Form...");
 
 	if(req.body.userDetails){
@@ -314,7 +314,7 @@ exports.saveForm = function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "galsh20@gmail.com", // list of receivers
-		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
+		    to: ["galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל טופס שאלון חדש", // Subject line
 		    text: "התקבל טופס שאלון חדש", // plain text body
 		    attachments: [{   
@@ -375,7 +375,7 @@ exports.saveForm = function(req, res){
 };
 
 // Save Secrecy Form
-exports.saveSecrecy = function(req, res){
+exports.saveSecrecy = async function(req, res){
 	// console.log("REQ: "+JSON.stringify(req.body, null, 4));
 	console.log("Start Save Secrecy Form...");
 	if(req.body.userDetails){
@@ -521,7 +521,7 @@ exports.saveSecrecy = function(req, res){
 };
 
 // Save Agreement Form
-exports.saveAgreement = function(req, res){
+exports.saveAgreement = async function(req, res){
 
 	console.log("Start Save Agreement Form...");
 	if(req.body.userDetails){
@@ -693,7 +693,7 @@ exports.adminLogin = function(req, res){
 
 
 // send Contact Form - Shadow Yoga Shala
-exports.sendContactForm = function(req, res){
+exports.sendContactForm = async function(req, res){
 	console.log("Start Save Contact Form...");
 	if(req.body.contactForm){
 		console.log("JSON: "+JSON.stringify(req.body.contactForm, null, 4));
