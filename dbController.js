@@ -273,14 +273,43 @@ exports.saveForm = function(req, res){
 
 
 		const nodemailer = require('nodemailer');
-		// create reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-		    service: 'gmail',
-		    auth: {
-		        user: 'cricketownIL@gmail.com',
-		        pass: 'cricket838495922Af3_3'
-		    }
+		const { google } = require("googleapis");
+		const OAuth2 = google.auth.OAuth2;
+
+		const oauth2Client = new OAuth2(
+			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
+			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"https://developers.google.com/oauthplayground" // Redirect URL
+	   	);
+	   	oauth2Client.setCredentials({
+			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
 		});
+		const tokens = await oauth2Client.refreshAccessToken()
+		const accessToken = tokens.credentials.access_token
+
+		// create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		//     service: 'gmail',
+		//     auth: {
+		//         user: 'cricketownIL@gmail.com',
+		//         pass: 'cricket838495922Af3_3'
+		//     }
+		// });
+
+		// New reusable transporter object using the default SMTP transport
+		let transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
+				accessToken: accessToken,
+				// expires: 1556636498754
+			}
+		});
+
   		// setup email data with unicode symbols
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
@@ -430,14 +459,43 @@ exports.saveSecrecy = function(req, res){
 
 		// Send Email - function
 		const nodemailer = require('nodemailer');
-		// create reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-		    service: 'gmail',
-		    auth: {
-		        user: 'cricketownIL@gmail.com',
-		        pass: 'cricket838495922Af3_3'
-		    }
+		const { google } = require("googleapis");
+		const OAuth2 = google.auth.OAuth2;
+
+		const oauth2Client = new OAuth2(
+			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
+			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"https://developers.google.com/oauthplayground" // Redirect URL
+	   	);
+	   	oauth2Client.setCredentials({
+			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
 		});
+		const tokens = await oauth2Client.refreshAccessToken()
+		const accessToken = tokens.credentials.access_token
+
+		// create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		//     service: 'gmail',
+		//     auth: {
+		//         user: 'cricketownIL@gmail.com',
+		//         pass: 'cricket838495922Af3_3'
+		//     }
+		// });
+
+		// New reusable transporter object using the default SMTP transport
+		let transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
+				accessToken: accessToken,
+				// expires: 1556636498754
+			}
+		});
+
     	// setup email data with unicode symbols
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
@@ -517,14 +575,43 @@ exports.saveAgreement = function(req, res){
 		// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
 
 		const nodemailer = require('nodemailer');
-		// create reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-		    service: 'gmail',
-		    auth: {
-		        user: 'cricketownIL@gmail.com',
-		        pass: 'cricket838495922Af3_3'
-		    }
+		const { google } = require("googleapis");
+		const OAuth2 = google.auth.OAuth2;
+
+		const oauth2Client = new OAuth2(
+			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
+			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"https://developers.google.com/oauthplayground" // Redirect URL
+	   	);
+	   	oauth2Client.setCredentials({
+			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
 		});
+		const tokens = await oauth2Client.refreshAccessToken()
+		const accessToken = tokens.credentials.access_token
+
+		// create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		//     service: 'gmail',
+		//     auth: {
+		//         user: 'cricketownIL@gmail.com',
+		//         pass: 'cricket838495922Af3_3'
+		//     }
+		// });
+
+		// New reusable transporter object using the default SMTP transport
+		let transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
+				accessToken: accessToken,
+				// expires: 1556636498754
+			}
+		});
+		
     	// setup email data with unicode symbols
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
@@ -615,13 +702,41 @@ exports.sendContactForm = function(req, res){
 
 
 		const nodemailer = require('nodemailer');
+		const { google } = require("googleapis");
+		const OAuth2 = google.auth.OAuth2;
+
+		const oauth2Client = new OAuth2(
+			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
+			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"https://developers.google.com/oauthplayground" // Redirect URL
+	   	);
+	   	oauth2Client.setCredentials({
+			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
+		});
+		const tokens = await oauth2Client.refreshAccessToken()
+		const accessToken = tokens.credentials.access_token
+
 		// create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		//     service: 'gmail',
+		//     auth: {
+		//         user: 'cricketownIL@gmail.com',
+		//         pass: 'cricket838495922Af3_3'
+		//     }
+		// });
+
+		// New reusable transporter object using the default SMTP transport
 		let transporter = nodemailer.createTransport({
-		    service: 'gmail',
-		    auth: {
-		        user: 'cricketownIL@gmail.com',
-		        pass: 'cricket838495922Af3_3'
-		    }
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
+				accessToken: accessToken,
+				// expires: 1556636498754
+			}
 		});
     	// setup email data with unicode symbols
 		let mailOptions = {
