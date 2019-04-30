@@ -1,10 +1,10 @@
 // npm Initialize
-var mongoose = require('mongoose');
-var dateFormat = require('dateformat');
-var JSZip = require('jszip');
-var Docxtemplater = require('docxtemplater');
-var fs = require('fs');
-var path = require('path');
+const mongoose = require('mongoose');
+const dateFormat = require('dateformat');
+const JSZip = require('jszip');
+const Docxtemplater = require('docxtemplater');
+const fs = require('fs');
+const path = require('path');
 
 
 // Schemes
@@ -656,6 +656,19 @@ exports.sendContactGal = function(req, res){
 
 
 		const nodemailer = require('nodemailer');
+		const { google } = require("googleapis");
+		const OAuth2 = google.auth.OAuth2;
+
+		const oauth2Client = new OAuth2(
+			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
+			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"https://developers.google.com/oauthplayground" // Redirect URL
+	   	);
+	   	oauth2Client.setCredentials({
+			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
+		});
+		const tokens = await oauth2Client.refreshAccessToken()
+		const accessToken = tokens.credentials.access_token
 
 		// create reusable transporter object using the default SMTP transport
 		// let transporter = nodemailer.createTransport({
@@ -667,19 +680,18 @@ exports.sendContactGal = function(req, res){
 		// });
 
 		// New reusable transporter object using the default SMTP transport
-		// let transporter = nodemailer.createTransport({
-		// 	service: 'Gmail',
-		// 	auth: {
-		// 		type: 'OAuth2',
-		// 		user: 'cricketownIL@gmail.com',
-		// 		pass: 'cricket838495922Af3_3',
-		// 		clientId: '332571259822-f5oo1v25so1uq7oq9oo2h41gus7bsagj.apps.googleusercontent.com',
-		// 		clientSecret: 'etYF6gGEIbiQIPI0dFPuNZU1',
-		// 		refreshToken: '1/KyLmMvEqrPT6wr6D-MWst1zND8Dnpmy5eIqW7D5RmlA',
-		// 		accessToken: 'ya29.Glv7BptWidIf1L1zz4WgCmS94whd0C9KEUARbqdqUmQO2iQgQLtAv76ApPyfeONORwEeYahgWrknHM8Iq0xIhAoTn2p35R6B0e9ZPobTAF0pDd0qQB0xu5wlyEPL',
-		// 		expires: 1556636498754
-		// 	}
-		// });
+		let transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+				refreshToken: refresh_token,
+				accessToken: accessToken,
+				expires: 1556636498754
+			}
+		});
 		let transporter = nodemailer.createTransport({
 			host: 'smtp.gmail.com',
 			port: 465,
