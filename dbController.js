@@ -667,17 +667,27 @@ exports.sendContactGal = function(req, res){
 		// });
 
 		// New reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		// 	service: 'Gmail',
+		// 	auth: {
+		// 		type: 'OAuth2',
+		// 		user: 'cricketownIL@gmail.com',
+		// 		pass: 'cricket838495922Af3_3',
+		// 		clientId: '332571259822-f5oo1v25so1uq7oq9oo2h41gus7bsagj.apps.googleusercontent.com',
+		// 		clientSecret: 'etYF6gGEIbiQIPI0dFPuNZU1',
+		// 		refreshToken: '1/KyLmMvEqrPT6wr6D-MWst1zND8Dnpmy5eIqW7D5RmlA',
+		// 		accessToken: 'ya29.Glv7BptWidIf1L1zz4WgCmS94whd0C9KEUARbqdqUmQO2iQgQLtAv76ApPyfeONORwEeYahgWrknHM8Iq0xIhAoTn2p35R6B0e9ZPobTAF0pDd0qQB0xu5wlyEPL',
+		// 		expires: 1556636498754
+		// 	}
+		// });
 		let transporter = nodemailer.createTransport({
-			service: 'Gmail',
+			host: 'smtp.gmail.com',
+			port: 465,
+			secure: true,
 			auth: {
 				type: 'OAuth2',
 				user: 'cricketownIL@gmail.com',
-				pass: 'cricket838495922Af3_3',
-				clientId: '332571259822-f5oo1v25so1uq7oq9oo2h41gus7bsagj.apps.googleusercontent.com',
-				clientSecret: 'etYF6gGEIbiQIPI0dFPuNZU1',
-				refreshToken: '1/KyLmMvEqrPT6wr6D-MWst1zND8Dnpmy5eIqW7D5RmlA',
 				accessToken: 'ya29.Glv7BptWidIf1L1zz4WgCmS94whd0C9KEUARbqdqUmQO2iQgQLtAv76ApPyfeONORwEeYahgWrknHM8Iq0xIhAoTn2p35R6B0e9ZPobTAF0pDd0qQB0xu5wlyEPL',
-				expires: 1556636498754
 			}
 		});
 
