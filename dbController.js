@@ -656,14 +656,30 @@ exports.sendContactGal = function(req, res){
 
 
 		const nodemailer = require('nodemailer');
+		
 		// create reusable transporter object using the default SMTP transport
+		// let transporter = nodemailer.createTransport({
+		//     service: 'gmail',
+		//     auth: {
+		//         user: 'cricketownIL@gmail.com',
+		//         pass: 'cricket838495922Af3_3'
+		//     }
+		// });
+
+		// New reusable transporter object using the default SMTP transport
 		let transporter = nodemailer.createTransport({
-		    service: 'gmail',
-		    auth: {
-		        user: 'cricketownIL@gmail.com',
-		        pass: 'cricket838495922Af3_3'
-		    }
+			service: 'Gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'cricketownIL@gmail.com',
+				clientId: '332571259822-f5oo1v25so1uq7oq9oo2h41gus7bsagj.apps.googleusercontent.com',
+				clientSecret: 'etYF6gGEIbiQIPI0dFPuNZU1',
+				refreshToken: '1/KyLmMvEqrPT6wr6D-MWst1zND8Dnpmy5eIqW7D5RmlA',
+				accessToken: 'ya29.Glv7BptWidIf1L1zz4WgCmS94whd0C9KEUARbqdqUmQO2iQgQLtAv76ApPyfeONORwEeYahgWrknHM8Iq0xIhAoTn2p35R6B0e9ZPobTAF0pDd0qQB0xu5wlyEPL',
+				// expires: 1556636498754
+			}
 		});
+
     	// setup email data with unicode symbols
 		let mailOptions = {
 		    from: '"Gal Portfolio Msg" <cricketownIL@gmail.com>', // sender address
