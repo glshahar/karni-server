@@ -689,19 +689,9 @@ exports.sendContactGal = async function(req, res){
 				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
 				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
 				accessToken: accessToken,
-				expires: 1556636498754
+				// expires: 1556636498754
 			}
 		});
-		// let transporter = nodemailer.createTransport({
-		// 	host: 'smtp.gmail.com',
-		// 	port: 465,
-		// 	secure: true,
-		// 	auth: {
-		// 		type: 'OAuth2',
-		// 		user: 'cricketownIL@gmail.com',
-		// 		accessToken: 'ya29.Glv7BptWidIf1L1zz4WgCmS94whd0C9KEUARbqdqUmQO2iQgQLtAv76ApPyfeONORwEeYahgWrknHM8Iq0xIhAoTn2p35R6B0e9ZPobTAF0pDd0qQB0xu5wlyEPL',
-		// 	}
-		// });
 
     	// setup email data with unicode symbols
 		let mailOptions = {
