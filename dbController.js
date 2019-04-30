@@ -647,7 +647,7 @@ exports.sendContactForm = function(req, res){
 };
 
 // send Contact Form - Portfolio
-exports.sendContactGal = function(req, res){
+exports.sendContactGal = async function(req, res){
 	console.log("Start Save Contact Form...");
 	if(req.body.contactForm){
 		console.log("JSON: "+JSON.stringify(req.body.contactForm, null, 4));
