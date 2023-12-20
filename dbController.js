@@ -473,6 +473,7 @@ exports.saveSecrecy = async function(req, res){
 			});
 			console.log('before OAuth2222');
 			const tokens = await oauth2Client.refreshAccessToken()
+			console.log(`tokens.credentials: ${tokens.credentials}`);
 			const accessToken = tokens.credentials.access_token;
 			console.log(`accessToken: ${accessToken}`);
 
