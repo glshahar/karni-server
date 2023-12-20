@@ -376,7 +376,6 @@ exports.saveForm = async function(req, res){
 
 // Save Secrecy Form
 exports.saveSecrecy = async function(req, res){
-	console.log("REQ: "+JSON.stringify(req.body, null, 4));
 	console.log("Start Save Secrecy Form...");
 	if (req.body.userDetails) {
 		try {
