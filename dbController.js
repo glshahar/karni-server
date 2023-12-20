@@ -463,15 +463,15 @@ exports.saveSecrecy = async function(req, res){
 		const OAuth2 = google.auth.OAuth2;
 
 		const oauth2Client = new OAuth2(
-			"844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com", // ClientID
-			"jDcIe8GuWLuuy5AeriKA_8RY", // Client Secret
+			"844028934916-516abqmsj5jvr3d67kbju1bimnmhco26.apps.googleusercontent.com", // ClientID
+			"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", // Client Secret
 			"https://developers.google.com/oauthplayground" // Redirect URL
 	   	);
 	   	oauth2Client.setCredentials({
-			refresh_token: "1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW"
+			refresh_token: "1//04WYW0GTgsMOKCgYIARAAGAQSNgF-L9IrjHfFu8l7IMkPaG2S4DldjthimBnRkV7B5Rga7lxNBhoqQFg2RXgYGV_9PlPMFVVNeA"
 		});
 		const tokens = await oauth2Client.refreshAccessToken()
-		const accessToken = tokens.credentials.access_token
+		const accessToken = tokens.credentials.access_token;
 
 		// create reusable transporter object using the default SMTP transport
 		// let transporter = nodemailer.createTransport({
@@ -500,7 +500,7 @@ exports.saveSecrecy = async function(req, res){
 		let mailOptions = {
 		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
 		    // to: "galsh20@gmail.com", // list of receivers
-		    to: ["karnishrem@gmail.com", "galsh20@gmail.com"], // list of receivers
+		    to: ["galsh20@gmail.com"], // list of receivers
 		    subject: "התקבל טופס ויתור סודיות חדש", // Subject line
 		    text: "התקבל טופס ויתור סודיות חדש", // plain text body
 		    attachments: [{   
