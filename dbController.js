@@ -376,147 +376,154 @@ exports.saveForm = async function(req, res){
 
 // Save Secrecy Form
 exports.saveSecrecy = async function(req, res){
-	// console.log("REQ: "+JSON.stringify(req.body, null, 4));
+	console.log("REQ: "+JSON.stringify(req.body, null, 4));
 	console.log("Start Save Secrecy Form...");
-	if(req.body.userDetails){
-		res.status(200).send();
-		var now = new Date();
-
-		var ImageModule = require('docxtemplater-image-module');
-
-		global.atob = require("atob");
-
-		var dataImg = req.body.userDetails.img;
-		let buff = dataURItoBlob(req.body.userDetails.img);
-
-
-		function dataURItoBlob(dataURI) {
-		    // convert base64/URLEncoded data to binary data
-		    var byteString;
-		    if (dataURI.split(',')[0].indexOf('base64') >= 0)
-		        byteString = atob(dataURI.split(',')[1]);
-		    else
-		        byteString = unescape(dataURI.split(',')[1]);
-
-		    // separate out the mime component
-		    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-		    // write the bytes of the string to a typed array
-		    var ia = new Uint8Array(byteString.length);
-		    for (var i = 0; i < byteString.length; i++) {
-		        ia[i] = byteString.charCodeAt(i);
-		    }
-		    let buffer = Buffer.from(ia);
-			let arraybuffer = Uint8Array.from(buffer).buffer;
-			return arraybuffer;
-		}
-
-
-
-		var opts = {}
-		opts.centered = false;
-		opts.getImage=function(tagValue, tagName) {return buff;}
-		opts.getSize=function(img,tagValue, tagName) {return [140,70];}
-
-		var imageModule = new ImageModule(opts);
-		//Load the docx file as a binary
-		var content = fs
-		    .readFileSync(path.resolve(__dirname, './documents/secrecy.docx'), 'binary');
-
-		var zip = new JSZip(content);
-		var doc = new Docxtemplater().attachModule(imageModule);
-		doc.loadZip(zip);
-
-
-		//set the templateVariables
-		doc.setData({
-			"date": dateFormat(now, "dd/mm/yyyy"),
-		    "first_name": req.body.userDetails.fName,
-		    "idNo": req.body.userDetails.idNo,
-		    "parentName": req.body.userDetails.parentName,
-		    "parentId": req.body.userDetails.parentId,
-		    "image": "file.png",
-		});
+	if (req.body.userDetails) {
 		try {
-		    // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
-		    doc.render()
+			res.status(200).send();
+			var now = new Date();
+
+			var ImageModule = require('docxtemplater-image-module');
+
+			global.atob = require("atob");
+
+			var dataImg = req.body.userDetails.img;
+			let buff = dataURItoBlob(req.body.userDetails.img);
+
+
+			function dataURItoBlob(dataURI) {
+				// convert base64/URLEncoded data to binary data
+				var byteString;
+				if (dataURI.split(',')[0].indexOf('base64') >= 0)
+					byteString = atob(dataURI.split(',')[1]);
+				else
+					byteString = unescape(dataURI.split(',')[1]);
+
+				// separate out the mime component
+				var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+				// write the bytes of the string to a typed array
+				var ia = new Uint8Array(byteString.length);
+				for (var i = 0; i < byteString.length; i++) {
+					ia[i] = byteString.charCodeAt(i);
+				}
+				let buffer = Buffer.from(ia);
+				let arraybuffer = Uint8Array.from(buffer).buffer;
+				return arraybuffer;
+			}
+
+
+
+			var opts = {}
+			opts.centered = false;
+			opts.getImage=function(tagValue, tagName) {return buff;}
+			opts.getSize=function(img,tagValue, tagName) {return [140,70];}
+
+			var imageModule = new ImageModule(opts);
+			//Load the docx file as a binary
+			var content = fs
+				.readFileSync(path.resolve(__dirname, './documents/secrecy.docx'), 'binary');
+
+			var zip = new JSZip(content);
+			var doc = new Docxtemplater().attachModule(imageModule);
+			doc.loadZip(zip);
+
+
+			//set the templateVariables
+			doc.setData({
+				"date": dateFormat(now, "dd/mm/yyyy"),
+				"first_name": req.body.userDetails.fName,
+				"idNo": req.body.userDetails.idNo,
+				"parentName": req.body.userDetails.parentName,
+				"parentId": req.body.userDetails.parentId,
+				"image": "file.png",
+			});
+			try {
+				// render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+				doc.render()
+			}
+			catch (error) {
+				var e = {
+					message: error.message,
+					name: error.name,
+					stack: error.stack,
+					properties: error.properties,
+				}
+				console.log(JSON.stringify({error: e}));
+				// The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
+				throw error;
+			}
+			var buf = doc.getZip().generate({type:"nodebuffer"});
+			// buf is a nodejs buffer, you can either write it to a file
+			// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
+
+
+			// Send Email - function
+			const nodemailer = require('nodemailer');
+			const { google } = require("googleapis");
+			const OAuth2 = google.auth.OAuth2;
+
+			const oauth2Client = new OAuth2(
+				"844028934916-516abqmsj5jvr3d67kbju1bimnmhco26.apps.googleusercontent.com", // ClientID
+				"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", // Client Secret
+				"https://developers.google.com/oauthplayground" // Redirect URL
+			);
+			oauth2Client.setCredentials({
+				refresh_token: "1//04WYW0GTgsMOKCgYIARAAGAQSNgF-L9IrjHfFu8l7IMkPaG2S4DldjthimBnRkV7B5Rga7lxNBhoqQFg2RXgYGV_9PlPMFVVNeA"
+			});
+			const tokens = await oauth2Client.refreshAccessToken()
+			const accessToken = tokens.credentials.access_token;
+			console.log(`accessToken: ${accessToken}`);
+
+			// create reusable transporter object using the default SMTP transport
+			// let transporter = nodemailer.createTransport({
+			//     service: 'gmail',
+			//     auth: {
+			//         user: 'cricketownIL@gmail.com',
+			//         pass: 'cricket838495922Af3_3'
+			//     }
+			// });
+
+			// New reusable transporter object using the default SMTP transport
+			let transporter = nodemailer.createTransport({
+				service: 'Gmail',
+				auth: {
+					type: 'OAuth2',
+					user: 'cricketownIL@gmail.com',
+					clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
+					clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
+					refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
+					accessToken: accessToken,
+					// expires: 1556636498754
+				}
+			});
+
+			// setup email data with unicode symbols
+			let mailOptions = {
+				from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
+				// to: "galsh20@gmail.com", // list of receivers
+				to: ["galsh20@gmail.com"], // list of receivers
+				subject: "התקבל טופס ויתור סודיות חדש", // Subject line
+				text: "התקבל טופס ויתור סודיות חדש", // plain text body
+				attachments: [{   
+					// utf-8 string as an attachment
+					filename: req.body.userDetails.fName+" - טופס סודיות.docx",
+					content: buf
+				}]
+			};
+			// send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return console.log(error);
+				}
+				console.log('Message %s sent: %s', info.messageId, info.response);
+			});
 		}
 		catch (error) {
-		    var e = {
-		        message: error.message,
-		        name: error.name,
-		        stack: error.stack,
-		        properties: error.properties,
-		    }
-		    console.log(JSON.stringify({error: e}));
-		    // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
-		    throw error;
+			console.log(error);
+			// The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
+			throw error;
 		}
-		var buf = doc.getZip().generate({type:"nodebuffer"});
-		// buf is a nodejs buffer, you can either write it to a file
-		// fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
-
-
-		// Send Email - function
-		const nodemailer = require('nodemailer');
-		const { google } = require("googleapis");
-		const OAuth2 = google.auth.OAuth2;
-
-		const oauth2Client = new OAuth2(
-			"844028934916-516abqmsj5jvr3d67kbju1bimnmhco26.apps.googleusercontent.com", // ClientID
-			"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", // Client Secret
-			"https://developers.google.com/oauthplayground" // Redirect URL
-	   	);
-	   	oauth2Client.setCredentials({
-			refresh_token: "1//04WYW0GTgsMOKCgYIARAAGAQSNgF-L9IrjHfFu8l7IMkPaG2S4DldjthimBnRkV7B5Rga7lxNBhoqQFg2RXgYGV_9PlPMFVVNeA"
-		});
-		const tokens = await oauth2Client.refreshAccessToken()
-		const accessToken = tokens.credentials.access_token;
-
-		// create reusable transporter object using the default SMTP transport
-		// let transporter = nodemailer.createTransport({
-		//     service: 'gmail',
-		//     auth: {
-		//         user: 'cricketownIL@gmail.com',
-		//         pass: 'cricket838495922Af3_3'
-		//     }
-		// });
-
-		// New reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-			service: 'Gmail',
-			auth: {
-				type: 'OAuth2',
-				user: 'cricketownIL@gmail.com',
-				clientId: '844028934916-c6c5fh6b4gorm8nd88oil6at51lle8l2.apps.googleusercontent.com',
-				clientSecret: 'jDcIe8GuWLuuy5AeriKA_8RY',
-				refreshToken: '1/il9OcxlT18s86KE6AXKMcNtsVSF6p_8jpeOH6o136uYD_x8HPpFIyByb4CqDa4IW',
-				accessToken: accessToken,
-				// expires: 1556636498754
-			}
-		});
-
-    	// setup email data with unicode symbols
-		let mailOptions = {
-		    from: '"הקליניקה של קרני" <cricketownIL@gmail.com>', // sender address
-		    // to: "galsh20@gmail.com", // list of receivers
-		    to: ["galsh20@gmail.com"], // list of receivers
-		    subject: "התקבל טופס ויתור סודיות חדש", // Subject line
-		    text: "התקבל טופס ויתור סודיות חדש", // plain text body
-		    attachments: [{   
-		    	// utf-8 string as an attachment
-		        filename: req.body.userDetails.fName+" - טופס סודיות.docx",
-		        content: buf
-		    }]
-		};
-		// send mail with defined transport object
-		transporter.sendMail(mailOptions, (error, info) => {
-		    if (error) {
-		        return console.log(error);
-		    }
-		    console.log('Message %s sent: %s', info.messageId, info.response);
-		});
-
 	}
 };
 
