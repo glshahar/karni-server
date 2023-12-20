@@ -381,7 +381,7 @@ exports.saveSecrecy = async function(req, res){
 		try {
 			res.status(200).send();
 			var now = new Date();
-
+			console.log(now);
 			var ImageModule = require('docxtemplater-image-module');
 
 			global.atob = require("atob");
@@ -461,6 +461,7 @@ exports.saveSecrecy = async function(req, res){
 			const nodemailer = require('nodemailer');
 			const { google } = require("googleapis");
 			const OAuth2 = google.auth.OAuth2;
+			console.log('before OAuth2');
 
 			const oauth2Client = new OAuth2(
 				"844028934916-516abqmsj5jvr3d67kbju1bimnmhco26.apps.googleusercontent.com", // ClientID
